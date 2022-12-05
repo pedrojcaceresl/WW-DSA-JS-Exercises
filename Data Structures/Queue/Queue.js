@@ -5,7 +5,7 @@ class Node {
   }
 }
 
-class Queue {
+export class Queue {
   constructor() {
     this.first = null;
     this.last = null;
@@ -26,26 +26,13 @@ class Queue {
   }
 
   dequeue() {
-    if (!this.first) return undefined;
-    let currentNode = this.first;
-    let prevNode;
-    if (this.last == this.first) this.last = null;
-
-    while (currentNode.next) {
-      prevNode = currentNode;
-      currentNode = currentNode.next;
+    if (!this.first) return null;
+    let temp = this.last;
+    if (this.first === this.last) {
+      this.last = null;
     }
-    prevNode.next = null;
-    this.last = prevNode;
+    this.first = this.first.next;
     this.size--;
-    return this;
+    return temp;
   }
 }
-
-// 1 2 3 4 5 6 7 8
-let q = new Queue();
-q.enqueue(10);
-q.enqueue(20);
-q.enqueue(30);
-q.dequeue();
-console.log(q);
