@@ -48,38 +48,79 @@ class BinarySearchTree {
     return undefined;
   }
 
-  dephtFirstSearchPreOrder(node = this.root) {
+  DFSPreOrder() {
+    let node = this.root;
+    let stack = [];
     let result = [];
-    if (!node) return result;
 
-    function traverse(root) {
-      if (root != null) return;
-      if (this.node.right) return traverse(this.node.right);
+    stack.push(node);
+
+    while (stack.length) {
+      let currenNode = stack.pop();
+
+      if (currenNode.right) stack.push(currenNode.right);
+      if (currenNode.left) stack.push(currenNode.left);
+      result.push(currenNode.value);
     }
+    return result;
   }
 
-  dephtFirstSearchInOrder() {}
+  DFSInOrder() {
+    let stack = [];
+    let result = [];
+    let currentNode = this.root;
 
-  dephtFirstSearchPostOrder() {}
+    while (currentNode || stack.length) {
+      while (currentNode) {
+        stack.push(currentNode);
+        currentNode = currentNode.left;
+      }
+      currentNode = stack.pop();
+      result.push(currentNode.value);
+      currentNode = currentNode.right;
+    }
+    return result;
+  }
+
+  DFSPostOrder() {
+    let node = this.root;
+    let stack = [];
+    let result = [];
+
+    stack.push(node);
+    while (stack.length) {
+      let currenNode = stack.pop();
+      if (currenNode.left) stack.push(currenNode.left);
+      if (currenNode.right) stack.push(currenNode.right);
+      result.push(currenNode.value);
+    }
+    return result.reverse();
+  }
 }
 
 let bst = new BinarySearchTree();
-bst.insert(10);
-bst.insert(8);
-bst.insert(5);
-bst.insert(9);
-bst.insert(12);
-bst.insert(11);
+// bst.insert(10);
+// bst.insert(8);
+// bst.insert(5);
+// bst.insert(9);
+// bst.insert(12);
+// bst.insert(11);
+// bst.insert(20);
+
+bst.insert(15);
 bst.insert(20);
+bst.insert(10);
+bst.insert(12);
+bst.insert(1);
+bst.insert(5);
+bst.insert(50);
 
-console.log(bst.find(20));
+// console.log(bst.DFSPreOrder());
+// console.log(bst.DFSInOrder());
+console.log(bst.DFSPostOrder());
 
-// 1
 //              10
 //             /  \
 //           8     12
 //         /  \   / \
 //        5   9  11  20
-//
-//
-//
